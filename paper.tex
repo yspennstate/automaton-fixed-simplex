@@ -1,0 +1,178 @@
+\documentclass[11pt]{amsart}
+
+\newcommand{\AUTHORNAME}{Yitzchak Shmalo}
+\newcommand{\AFFILIATION}{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\newcommand{\AUTHOREMAIL}{yitzchak.shmalo@gmail.com}
+\newcommand{\FUNDING}{The research presented in this paper was supported by the European Research Council (ERC) under the European Union's Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by the Israel Science Foundation (grant number 2258/19), and by the Israel Science Foundation (ISF Grant 4101/25).}
+\newcommand{\ACKNOWLEDGMENTS}{The final manuscript was audited by Claude Opus~5.5 (Anthropic), which checked the proofs and the cited results against the sources. }
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[capitalise,nameinlink]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{remark}{Remark}{Remarks}
+\crefname{section}{Section}{Sections}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\GW}{\mathrm{GW}}
+
+\begin{document}
+
+\title[Tree automata with a simplex of fixed points]{A tree automaton with infinitely many rogue fixed points under every supercritical offspring law}
+
+\author{\AUTHORNAME}
+\address{\AFFILIATION}
+\email{\AUTHOREMAIL}
+
+\subjclass[2020]{Primary 60J80; Secondary 68Q45, 60E05}
+\keywords{Tree automaton, Galton--Watson tree, recursive distributional equation, fixed point, interpretation, rogue fixed point}
+
+\begin{abstract}
+Johnson, Podder and Skerman asked whether a tree automaton with finitely many, but at least three, states can have infinitely many fixed points of its automaton distributional map. Under binary branching an example with three states is implicit in earlier work of Rozikov and Zada on quadratic stochastic operators. We show that the phenomenon holds for every supercritical offspring law, Poisson laws included. For every $k\ge2$ there is an automaton on $k+1$ states whose fixed points, for an offspring law with generating function $G$ and mean greater than one, are one point mass together with the $(k-1)$-dimensional simplex of laws that give the distinguished state mass $s_*$, where $G'(s_*)=1$. Every point of the simplex is rogue, with no moment assumption on the offspring law; for the points other than the $k$ vertices this has a short self-contained proof.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $\Sigma$ be a finite set of states. Following \cite{JPS}, a \emph{tree automaton} is a map $A\colon \N_0^\Sigma\to\Sigma$: the state of a parent is $A(\vec n)$, where $\vec n=(n_\sigma)_{\sigma\in\Sigma}$ counts its children in each state. Let $\chi$ be a law on $\N_0$ with $\chi(\{2,3,\dots\})>0$, the standing assumption of \cite[Section~1.2]{JPS}, and let $D$ be the simplex of laws on $\Sigma$. The \emph{automaton distributional map} $\Psi\colon D\to D$ sends $x$ to the law of $A(\vec n)$, where the root has $N\sim\chi$ children whose states are independent with law $x$ \cite[Section~1.5]{JPS}. An \emph{interpretation} of $A$ under $\GW(\chi)$ is a measurable map $\iota$ from locally finite, ordered, rooted trees (with their Borel $\sigma$-field) to $\Sigma$ such that, for almost every $\GW(\chi)$ tree $t$, the colouring $v\mapsto\iota(t(v))$ is compatible with $A$; the law of $\iota(T)$ is then a fixed point of $\Psi$, and a fixed point that does not arise this way is called \emph{rogue} \cite[Sections~1.4 and~1.5]{JPS}.
+
+Johnson, Podder and Skerman remark that the case $|\Sigma|=2$ can be ruled out by arguing that the automaton distributional map is analytic. The argument needs a hypothesis on $\chi$: \cref{rem:two} gives a two-state automaton whose map is the identity. They asked \cite[Section~6]{JPS}: when $3\le|\Sigma|<\infty$, can an automaton have infinitely many fixed points?
+
+For binary branching the answer was in effect already known. Rozikov and Zada \cite[Theorem~2(iv) and equation~(21)]{RZ} found a segment of fixed points for a family of quadratic stochastic operators on the two-dimensional simplex. At their parameters $a=b=0$, $c=1$ the operator is $(x,y,z)\mapsto(2xz,\,2yz,\,z^2+(x+y)^2)$; its heredity coefficients are $0$ or $1$, so it is the automaton distributional map of a deterministic three-state automaton under $\GW(\delta_2)$, namely the automaton $A_2$ below, and its fixed segment is $x+y=1/2$. What follows extends this example to every supercritical offspring law (\cite{JPS} treats general offspring laws, and most of its examples are Poisson) and proves that every point of the simplex is rogue.
+
+Fix $k\ge2$ and let $\Sigma_k=\{a,b_1,\dots,b_k\}$. Call $a$ the \emph{even} state and the $b_i$ the \emph{odd} states. Let $A_k$ be the automaton whose output is $b_i$ when the vertex has exactly one odd child and that child is in state $b_i$, and $a$ otherwise:
+\[
+A_k(\vec n)=\begin{cases} b_i & \text{if } n_{b_i}=1 \text{ and } n_{b_j}=0 \text{ for } j\ne i,\\ a & \text{otherwise.}\end{cases}
+\]
+The number $n_a$ of even children plays no role, and a leaf is in state $a$. On a vertex with two children, $A_k$ is the symmetric rule
+\[
+g(a,a)=a,\qquad g(b_i,b_j)=a,\qquad g(a,b_i)=g(b_i,a)=b_i ,
+\]
+and on a vertex with one child it copies that child.
+
+Write $G(s)=\sum_{n\ge0}\chi(n)s^n$ for the generating function of $\chi$ and $m=G'(1)\in(0,\infty]$ for its mean. Under the standing assumption $\chi(\{2,3,\dots\})>0$, $G'$ is continuous and strictly increasing on $[0,1)$, with $G'(0)=\chi(1)<1$. So when $m>1$ there is a unique $s_*\in(0,1)$ with $G'(s_*)=1$.
+
+\begin{theorem}\label[theorem]{thm:main}
+If $m>1$, the fixed points of the automaton distributional map of $A_k$ under $\GW(\chi)$ are exactly the point mass $\delta_a$ and the laws $x$ with $x(a)=s_*$. The latter form a $(k-1)$-dimensional simplex, whose relative interior consists of laws of full support. If $m\le1$, the only fixed point is $\delta_a$.
+\end{theorem}
+
+\begin{corollary}\label[corollary]{cor:examples}
+For $\chi=r\delta_1+(1-r)\delta_2$ with $0\le r<1$, $s_*=1/2$; for $k=2$ the three-state automaton $A_2$ then has the line of fixed points $\bigl(\tfrac12,t,\tfrac12-t\bigr)$, $0\le t\le\tfrac12$, in the order $(a,b_1,b_2)$. For the Poisson law with mean $\lambda>1$, $s_*=1-(\log\lambda)/\lambda$.
+\end{corollary}
+
+\begin{proof}
+In the first case $G'(s)=r+2(1-r)s$, and in the second $G'(s)=\lambda e^{\lambda(s-1)}$; solve $G'(s)=1$.
+\end{proof}
+
+\begin{theorem}\label[theorem]{thm:interp}
+Let $m>1$ and let $\iota$ be an interpretation of $A_k$ under $\GW(\chi)$. Then the law of $\iota(T)$ is $\delta_a$ or $s_*\delta_a+(1-s_*)\delta_{b_i}$ for some $i$. Hence every fixed point other than these $k+1$ laws is rogue; in particular so is every fixed point of full support.
+\end{theorem}
+
+\begin{theorem}\label[theorem]{thm:only}
+If $m>1$, then $\delta_a$ is the only fixed point of $A_k$ under $\GW(\chi)$ that admits an interpretation.
+\end{theorem}
+
+\begin{proposition}\label[proposition]{prop:rogue}
+Under $\GW(\delta_2)$ the only interpretation of $A_k$, up to almost sure equality, is the constant map with value $a$. Hence every fixed point with $x(a)=1/2$ is rogue.
+\end{proposition}
+
+Thus for every supercritical offspring law the fixed-point set contains a continuum of rogue laws. \Cref{thm:only} contains \cref{thm:interp} and \cref{prop:rogue}; we keep them because their proofs are elementary, while the proof of \cref{thm:only} goes through the spine argument of \cite[Section~4]{JPS}.
+
+\section{Proofs}
+
+\begin{proof}[Proof of \cref{thm:main}]
+Let $x$ be a law on $\Sigma_k$ and write $s=x(a)$. Given $N=n$, the children are independent with law $x$, and the root is in state $b_i$ exactly when one child is $b_i$ and the other $n-1$ are $a$; this has probability $n\,x(b_i)s^{n-1}$. Summing over $n$,
+\[
+\Psi(x)(b_i)=x(b_i)\,G'(s),\qquad \Psi(x)(a)=1-(1-s)\,G'(s),
+\]
+for $s<1$, where $G'(s)$ is finite. (A root with no children is in state $a$, and the term $n=0$ contributes nothing to the first formula.)
+
+If $x(b_i)=0$ for every $i$, then $x=\delta_a$ and $\Psi(x)=\delta_a$. Otherwise $s<1$, and a fixed point must satisfy $G'(s)=1$, from the coordinate of any $b_i$ with $x(b_i)>0$. Conversely, if $G'(s)=1$ then $\Psi(x)(b_i)=x(b_i)$ for every $i$ and $\Psi(x)(a)=1-(1-s)=s$, so $x$ is fixed. For $s<1$ we have $G'(s)<G'(1)=m$, so $G'(s)=1$ has no solution when $m\le1$ and exactly the solution $s_*$ when $m>1$. The laws with $x(a)=s_*$ are $s_*\delta_a+(1-s_*)\mu$ with $\mu$ any law on $\{b_1,\dots,b_k\}$, a $(k-1)$-simplex, and $x$ has full support exactly when $\mu$ does.
+\end{proof}
+
+For $\chi=\delta_2$ and $k=2$, writing $(x_0,x_1,x_2)$ for the masses of $(a,b_1,b_2)$, the map is
+\[
+\Psi(x_0,x_1,x_2)=\bigl(x_0^2+(x_1+x_2)^2,\; 2x_0x_1,\; 2x_0x_2\bigr),
+\]
+and the line in \cref{cor:examples} can be checked by substitution.
+
+\begin{proof}[Proof of \cref{prop:rogue}]
+Under $\GW(\delta_2)$ the tree is almost surely the infinite binary tree $t_*$, and every subtree $t_*(v)$ equals $t_*$. An interpretation $\iota$ therefore colours every vertex of $t_*$ with the single value $c=\iota(t_*)$, and compatibility at a vertex with two children in state $c$ requires $c=g(c,c)$. This holds for $c=a$ and fails for $c=b_i$, since $g(b_i,b_i)=a$. Conversely the constant map $a$ is compatible at every vertex. So the law of $\iota(T)$ is $\delta_a$, and every fixed point with $x(a)=1/2$ is rogue.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:interp}]
+Let $x$ be the law of $\iota(T)$; it is a fixed point \cite[Section~1.5]{JPS}, so by \cref{thm:main} either $x=\delta_a$ or $s:=x(a)=s_*$. Assume the latter. Call a tree $t$ \emph{odd} if $\iota(t)\ne a$ and \emph{even} otherwise, and let $O$ be the set of odd trees, so $\mathbb P(T\in O)=1-s_*>0$. Almost surely the colouring $v\mapsto\iota(T(v))$ is compatible with $A_k$ at every vertex. By the definition of $A_k$, an odd vertex $v$ then has exactly one odd child $c(v)$, and $\iota(T(c(v)))=\iota(T(v))$.
+
+For an odd tree $t$ with this property at its root, let $\theta t=t(c(o))$ be the subtree of the odd child and let $\xi(t)$ record the rest of the first generation: the number $n$ of children of the root, the position $j$ of the odd child among them, and the $n-1$ even subtrees of its siblings, in order. Given $N=n$ the subtrees of the children of the root are independent $\GW(\chi)$ trees, and whether each is odd is decided by that subtree alone. Hence, for Borel sets $B$ of trees and $C$ of decorations,
+\[
+\mathbb P\bigl(T\in O,\ \theta T\in B,\ \xi(T)\in C\bigr)=\mathbb P(T\in B\cap O)\,\nu(C),
+\]
+where $\nu(C)=\sum_n\chi(n)\sum_{j=1}^{n}\mathbb P\bigl((n,j,T_1,\dots,T_{n-1})\in C,\ T_1,\dots,T_{n-1}\notin O\bigr)$ with $T_1,T_2,\dots$ independent $\GW(\chi)$ trees. The total mass of $\nu$ is $\sum_n\chi(n)\,n\,s_*^{n-1}=G'(s_*)=1$. Dividing by $\mathbb P(T\in O)$: under $\mathbb P(\,\cdot\mid T\in O)$, $\theta T$ is odd with the conditional law of $T$, and $\xi(T)$ has law $\nu$ and is independent of $\theta T$.
+
+Set $T_0=T$, $T_{r+1}=\theta T_r$ and $\xi_r=\xi(T_r)$; these are defined almost surely on $\{T\in O\}$, since every vertex of the odd ray $o,c(o),c(c(o)),\dots$ is odd. Iterating the previous paragraph, under $\mathbb P(\,\cdot\mid T\in O)$ the $\xi_r$ are independent with law $\nu$, and $\xi_0,\dots,\xi_{r-1}$ are independent of $T_r$. The tree $T_r$ is the odd ray from its root with the decorations $\xi_r,\xi_{r+1},\dots$ hung along it; its first $h$ generations are determined by $\xi_r,\dots,\xi_{r+h-1}$, so $T_r$ is a measurable function of $(\xi_r,\xi_{r+1},\dots)$. Fix $i$. Since $\iota$ is constant along the odd ray, $\mathbf 1\{\iota(T_0)=b_i\}=\mathbf 1\{\iota(T_r)=b_i\}$ almost surely, and the right side is $\sigma(\xi_r,\xi_{r+1},\dots)$-measurable. So $\{\iota(T)=b_i\}$ agrees almost surely with an event of the tail $\sigma$-field of the independent sequence $(\xi_r)$, and by Kolmogorov's zero-one law $\mathbb P(\iota(T)=b_i\mid T\in O)\in\{0,1\}$. Thus $x$ restricted to $\{b_1,\dots,b_k\}$ is concentrated on a single state.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:only}]
+Merge $b_1,\dots,b_k$ into one state $b$. The result is the two-state automaton $B$ that outputs $b$ when exactly one child is in state $b$, and $a$ otherwise. If $\iota$ interprets a fixed point $x$ of $A_k$ with $x\ne\delta_a$, then composing $\iota$ with the merging map interprets the fixed point $\bar x=(s_*,1-s_*)$ of $B$. So it suffices to show that $\bar x$ is rogue. By \cite[Theorem~1.7]{JPS} this holds if the pivot tree of $\bar x$ is supercritical, provided $\chi$ has a finite logarithmic moment; we first check that for $B$ the moment is not needed, and then compute the pivot tree.
+
+The direction of \cite[Theorem~1.7]{JPS} used here is proved in \cite[Section~4]{JPS}. The logarithmic moment is used substantively only in \cite[Lemma~4.14]{JPS}, through \cite[Lemma~4.13]{JPS}, and \cite[Lemma~4.15]{JPS} inherits it from there. In \cite[Lemma~4.14]{JPS} it serves to bound the number of children of the root of $T^{0s}$ and of $T^{1s}$, where $T^{\ell}$ is the random state tree conditioned on the label $\ell$ of its root, and $\ell=0s$ or $1s$ means that the root has the colour $0$ or $1$ and starts an infinite path of pivotal vertices \cite[Section~4]{JPS}. For $B$, with the colours $a$ and $b$ in the roles of $0$ and $1$, write $s=s_*$ and $p=1-s_*$, and let $N$ be the number of children of the root. Then $\mathbb P(N=n,\ \text{root in state }b)=\chi(n)\,n\,p\,s^{n-1}$, since the root then has exactly one child in state $b$. A root labelled $0s$ is in state $a$ and has a pivotal child, so, as shown below, it has either zero or exactly two children in state $b$, and $\mathbb P(N=n,\ \text{label }0s)\le\chi(n)\bigl(s^n+\binom n2p^2s^{n-2}\bigr)$. The labels $0s$ and $1s$ have positive probability when the pivot tree is supercritical \cite[Proposition~2.6(c)]{JPS}, so dividing by $\mathbb P(0s)$ and $\mathbb P(1s)$,
+\[
+\mathbb P(N=n\mid 0s)\le\frac{\chi(n)\bigl(s^n+\binom n2p^2s^{n-2}\bigr)}{\mathbb P(0s)},\qquad
+\mathbb P(N=n\mid 1s)\le\frac{\chi(n)\,n\,p\,s^{n-1}}{\mathbb P(1s)},
+\]
+and both are at most $C\,n^2s^{n-2}$ for a constant $C$. As $s<1$, the root degrees $D_{0s}$ and $D_{1s}$ of $T^{0s}$ and $T^{1s}$ have all moments; put $L=\max\{\mathbb E D_{0s},\mathbb E D_{1s}\}<\infty$.
+
+With these bounds the conclusion of \cite[Lemma~4.14]{JPS} holds without the moment assumption. We give the argument in full, because the end of the proof in \cite{JPS} conditions a spine subtree on the whole spine $\sigma$-field, which \cite[Proposition~4.9(c)]{JPS} does not cover. In the notation of \cite[Section~4]{JPS}, let $\mathcal H_i$ be the information revealed by exploring the spine $V_0,\dots,V_{i-1}$, revealing at each explored spine vertex all its children with their labels but nothing below the children off the spine. The weights $W_0,\dots,W_{i-1}$ are $\mathcal H_i$-measurable. Given $\mathcal H_i$, the unswitched subtree at $V_i$ has law $\mathrm{RST}_{0s}$ or $\mathrm{RST}_{1s}$ according to its label, so $\mathbb E[\deg V_i\mid\mathcal H_i]\le L$, and the proof of \cite[Lemma~4.12]{JPS} goes through with $\mathcal H_i$ in place of the spine $\sigma$-fields, giving $\mathbb E[W_0\cdots W_{i-1}]\le c^{\lfloor i/2\rfloor}$ for some $c<1$. Since $N(V_i,T^{0s},\omega_*^{0s\to1s})\le\deg V_i$,
+\[
+\mathbb E\sum_{i\ge0}W_0\cdots W_{i-1}\,N(V_i,T^{0s},\omega_*^{0s\to1s})
+\le\sum_{i\ge0}\mathbb E\bigl[W_0\cdots W_{i-1}\,\mathbb E[\deg V_i\mid\mathcal H_i]\bigr]
+\le L\sum_{i\ge0}c^{\lfloor i/2\rfloor}<\infty,
+\]
+so the series of \cite[Lemma~4.14]{JPS} is finite almost surely. The rest of the proof of \cite[Theorem~1.7]{JPS}, that a supercritical pivot tree makes the fixed point rogue, then goes through without the moment assumption on $\chi$.
+
+In the random state tree of $\bar x$ \cite[Section~1.6]{JPS}, a vertex is pivotal when changing its colour, and recolouring its ancestors by $B$, changes the colour of the root; the pivot tree is a two-type Galton--Watson tree, the type being the colour \cite[Proposition~2.4]{JPS}. Given the colour of a vertex, its children are $N$ independent colours with law $\bar x$, conditioned on $B$ producing that colour. A vertex in state $b$ has exactly one child in state $b$, and changing any one child's colour leaves it with zero or two such children, so every child is pivotal. A vertex in state $a$ with no child in state $b$ has all its children pivotal, all in state $a$; one with exactly two children in state $b$ has those two pivotal and no others; one with three or more has none. Taking expectations, with $\mathbb P(b)=pG'(s)=p$ and $\mathbb P(a)=s$, the mean offspring matrix of the pivot tree, rows and columns ordered $(b,a)$, is
+\[
+M=\begin{pmatrix} 1 & s\,G''(s)\\ p^2G''(s)/s & 1\end{pmatrix}:
+\]
+from $b$, one pivotal child of type $b$ and $\sum_n\chi(n)\,n(n-1)s^{n-1}=sG''(s)$ of type $a$ on average; from $a$, $\sum_n\chi(n)\,n\,s^n/s=G'(s)=1$ of type $a$ and $2\sum_n\chi(n)\binom n2p^2s^{n-2}/s=p^2G''(s)/s$ of type $b$. Since $\chi(\{2,3,\dots\})>0$ we have $G''(s)\in(0,\infty)$, and the spectral radius of $M$ is $1+pG''(s)>1$.
+\end{proof}
+
+\begin{remark}\label[remark]{rem:two}
+Two states can suffice when $\chi$ has infinite mean. Let $\chi(n)=1/(n(n-1))$ for $n\ge2$, which has infinite mean and a finite logarithmic moment, and let the two-state automaton on $\{0,1\}$ output $1$ exactly when at most one child is in state $0$. If each child is in state $1$ with probability $p$, then
+\[
+\Psi(p)=\sum_{n\ge2}\frac{p^n+n(1-p)p^{n-1}}{n(n-1)}=\sum_{n\ge2}\Bigl(\frac{p^{n-1}}{n-1}-\frac{p^n}{n}\Bigr)=p ,
+\]
+so every law on $\{0,1\}$ is fixed. If instead $\chi(0)>0$ and $G$ is entire, as for Poisson laws, three states are needed: $\Psi$ is then analytic on a neighbourhood of $[0,1]$, and it is not the identity, since a leaf in state $0$ gives $\Psi(1)\le1-\chi(0)$ and a leaf in state $1$ gives $\Psi(0)\ge\chi(0)$; so $\Psi$ has finitely many fixed points in $[0,1]$.
+
+The argument in the proof of \cref{thm:only} applies to any two-state automaton and nondegenerate fixed point: under the other hypotheses of \cite[Theorem~1.7]{JPS}, including full support of the fixed point, a supercritical pivot tree makes the fixed point rogue whenever the root of $T^{0s}$ and of $T^{1s}$ has a number of children with a finite logarithmic moment, whatever $\chi$ is. (With only a logarithmic moment, the exponential decay of $W_0\cdots W_{i-1}$ in \cite[Lemma~4.14]{JPS} and the Borel--Cantelli lemma replace the bound by $L$.) For Poisson offspring with mean $\lambda>1$ the spectral radius in the proof of \cref{thm:only} is $1+\log\lambda$.
+\end{remark}
+
+\section*{Acknowledgements and funding}
+\ACKNOWLEDGMENTS\FUNDING
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital. These entities are included in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics. In October 2026 an OpenAI GPT model, running as a research task of that project, proposed a four-state automaton with a line of fixed points. Claude Opus~5.5 (Anthropic), working in Claude Code, audited it against the source paper, found the simpler automaton presented here by an exhaustive search over three-state rules, extended it to general offspring laws, and wrote the paper. A second, independent audit by an OpenAI GPT model found the earlier example of Rozikov and Zada and suggested the reduction to the two-state theorem used for \cref{thm:only}; a third audit, by the same model in a fresh session, checked the revised text and supplied the two-state example in \cref{rem:two}; a fourth passed that text. Claude then found that the logarithmic moment can be dropped from \cref{thm:only}. A fifth audit, again by an OpenAI GPT model, passed that argument and suggested the self-contained form of the series estimate given in the proof. These checks are not peer review. The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\bibliographystyle{amsplain}
+\bibliography{references}
+
+\end{document}
