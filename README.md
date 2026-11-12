@@ -6,4 +6,6 @@ Johnson, Podder and Skerman (Random Structures & Algorithms 56 (2020); arXiv:180
 
 On states {a, b1, ..., bk}, let a vertex take state bi when exactly one of its children is in a state b and that child is in state bi, and state a otherwise. If the offspring law has generating function G and mean greater than one, the fixed points are the point mass at a and every law that gives a the mass s*, where G'(s*) = 1, a (k-1)-dimensional simplex. For Poisson offspring with mean λ > 1, s* = 1 - (log λ)/λ. Every point of the simplex is rogue, with no moment assumption, so the point mass at a is the only interpretable fixed point. For the points other than the vertices there is a short direct proof; the vertices use the spine argument of Johnson, Podder and Skerman, whose logarithmic moment assumption is not needed for this automaton. A remark shows that two states already suffice when the offspring law has infinite mean, and that three are needed for Poisson offspring.
 
-Files: `paper.pdf`, and its source `paper.tex` with `references.bib` (amsart, cleveref; compile with pdflatex and bibtex).
+Files: `paper.pdf`, and its source `paper.tex` with `notation.tex` and `references.bib` (amsart, cleveref; compile with pdflatex and bibtex).
+
+`code/check_automaton.py` checks the fixed points, the mean offspring matrix of the pivot tree and the identity in Remark 2.1 in exact arithmetic (`python code/check_automaton.py`).
